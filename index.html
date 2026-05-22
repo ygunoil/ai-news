@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 大模型动态周报 - 2026.05.22</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                        },
+                        dark: {
+                            900: '#0a0a1a',
+                            800: '#111127',
+                            700: '#1a1a3e',
+                            600: '#24244f',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: #0a0a1a;
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #818cf8, #c084fc, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-glow:hover {
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.15);
+        }
+        .hero-bg {
+            background: radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 20%, rgba(192, 132, 252, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 80%, rgba(244, 114, 182, 0.06) 0%, transparent 50%);
+        }
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #818cf8, #c084fc);
+            box-shadow: 0 0 12px rgba(129, 140, 248, 0.5);
+        }
+        .tag {
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #a5b4fc;
+        }
+        .tag-green {
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #86efac;
+        }
+        .tag-amber {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #fcd34d;
+        }
+        .tag-rose {
+            background: rgba(244, 63, 94, 0.15);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            color: #fda4af;
+        }
+        .tag-cyan {
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            color: #67e8f9;
+        }
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.06));
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4338ca;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="text-gray-300 antialiased">
+
+    <!-- Hero Section -->
+    <section class="hero-bg min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4">
+        <!-- Animated background particles -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-500/5 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+            <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-pink-500/5 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+        </div>
+
+        <div class="text-center z-10" data-aos="fade-up" data-aos-duration="1000">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-300 text-sm mb-8">
+                <i class="fa-solid fa-robot"></i>
+                <span>AI Weekly Digest</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+                <span class="gradient-text">AI 大模型</span><br>
+                <span class="text-white">最新动态周报</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-400 mb-4 max-w-2xl mx-auto">
+                2026 年 5 月 22 日
+            </p>
+            <p class="text-base text-gray-500 max-w-xl mx-auto mb-12">
+                覆盖全球主流 AI 实验室最新进展，从模型训练范式到产业落地，一文速览
+            </p>
+        </div>
+
+        <div class="scroll-indicator absolute bottom-12 text-gray-500">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Key Stats -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="stat-card rounded-2xl p-6 text-center">
+                    <div class="text-3xl font-bold text-brand-400 mb-1">$57亿</div>
+                    <div class="text-sm text-gray-500">OpenAI Q1 营收</div>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center">
+                    <div class="text-3xl font-bold text-purple-400 mb-1">$100亿</div>
+                    <div class="text-sm text-gray-500">AMD 投资台湾 AI</div>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center">
+                    <div class="text-3xl font-bold text-pink-400 mb-1">$10亿</div>
+                    <div class="text-sm text-gray-500">Manus 回购融资</div>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center">
+                    <div class="text-3xl font-bold text-emerald-400 mb-1">1万亿</div>
+                    <div class="text-sm text-gray-500">Nvidia 芯片营收目标</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trend 1: Reasoning Models -->
+    <section class="py-16 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex items-center gap-4 mb-12" data-aos="fade-right">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-purple-600 flex items-center justify-center text-white text-2xl shadow-lg shadow-brand-500/20">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bold text-white">年度主题：推理模型全面崛起</h2>
+                    <p class="text-gray-500 mt-1">RLVR + GRPO 重塑训练范式</p>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Card 1 -->
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-3xl p-8 card-glow transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="timeline-dot mt-2 flex-shrink-0"></div>
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center gap-2 mb-2">
+                                <h3 class="text-xl font-bold text-white">DeepSeek R1：开源推理的里程碑</h3>
+                                <span class="tag-rose text-xs px-2 py-0.5 rounded-full font-medium">重磅</span>
+                            </div>
+                            <p class="text-gray-400 leading-relaxed">
+                                2025 年 1 月，DeepSeek 发布 R1 开源推理模型，性能媲美当时最强闭源模型（GPT、Gemini 等）。论文揭示通过 <strong class="text-brand-300">RLVR（可验证奖励强化学习）+ GRPO 算法</strong>，可高效训练推理能力。更令行业震惊的是，训练 R1 的额外成本仅约 <strong class="text-emerald-400">29.4 万美元</strong>，基础模型 V3 训练成本约 500 万美元，远低于此前行业预期。
+                            </p>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="tag text-xs px-2 py-1 rounded-full">开源模型</span>
+                                <span class="tag text-xs px-2 py-1 rounded-full">RLVR</span>
+                                <span class="tag text-xs px-2 py-1 rounded-full">GRPO</span>
+                                <span class="tag-green text-xs px-2 py-1 rounded-full">低成本训练</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-3xl p-8 card-glow transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="timeline-dot mt-2 flex-shrink-0"></div>
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center gap-2 mb-2">
+                                <h3 class="text-xl font-bold text-white">2025 技术焦点年历</h3>
+                                <span class="tag-cyan text-xs px-2 py-0.5 rounded-full font-medium">趋势</span>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                <div class="bg-dark-700/50 rounded-xl p-4 border border-white/5">
+                                    <div class="text-sm text-gray-500 mb-1">2022</div>
+                                    <div class="text-white font-medium">RLHF + PPO</div>
+                                    <div class="text-xs text-gray-500 mt-1">ChatGPT 诞生的核心技术</div>
+                                </div>
+                                <div class="bg-dark-700/50 rounded-xl p-4 border border-white/5">
+                                    <div class="text-sm text-gray-500 mb-1">2023</div>
+                                    <div class="text-white font-medium">LoRA 参数高效微调</div>
+                                    <div class="text-xs text-gray-500 mt-1">小模型定制化浪潮</div>
+                                </div>
+                                <div class="bg-dark-700/50 rounded-xl p-4 border border-white/5">
+                                    <div class="text-sm text-gray-500 mb-1">2024</div>
+                                    <div class="text-white font-medium">Mid-Training</div>
+                                    <div class="text-xs text-gray-500 mt-1">合成数据 + 长上下文训练</div>
+                                </div>
+                                <div class="bg-brand-600/20 rounded-xl p-4 border border-brand-500/30">
+                                    <div class="text-sm text-brand-300 mb-1">2025</div>
+                                    <div class="text-white font-bold">RLVR + GRPO</div>
+                                    <div class="text-xs text-brand-200/60 mt-1">推理模型全面爆发</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-3xl p-8 card-glow transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="timeline-dot mt-2 flex-shrink-0"></div>
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center gap-2 mb-2">
+                                <h3 class="text-xl font-bold text-white">未来预测：2026-2027</h3>
+                                <span class="tag-amber text-xs px-2 py-0.5 rounded-full font-medium">预测</span>
+                            </div>
+                            <p class="text-gray-400 leading-relaxed">
+                                Sebastian Raschka 预测：<strong class="text-brand-300">2026 年</strong>将看到 RLVR 向更多领域扩展（超越数学和代码），以及推理时扩展（Inference-time Scaling）的深入应用。<strong class="text-purple-300">2027 年</strong>则可能是持续学习（Continual Learning）的突破之年——模型无需从头训练即可学习新知识。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="max-w-5xl mx-auto px-4">
+        <div class="h-px bg-gradient-to-r from-transparent via-brand-500/30 to-transparent"></div>
+    </div>
+
+    <!-- Trend 2: Industry & Products -->
+    <section class="py-16 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex items-center gap-4 mb-12" data-aos="fade-right">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-white text-2xl shadow-lg shadow-purple-500/20">
+                    <i class="fa-solid fa-rocket"></i>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bold text-white">大厂动态与产品革新</h2>
+                    <p class="text-gray-500 mt-1">Google / OpenAI / 腾讯 / 阿里巴巴</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Google -->
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-3xl p-6 card-glow transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
+                            <i class="fa-brands fa-google text-blue-400"></i>
+                        </div>
+                        <span class="text-white font-bold">Google DeepMind</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Nano Banana Pro 图像生成突破</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Google 发布全新图像生成 AI <strong class="text-blue-300">Nano Banana Pro</strong>，结合高质量图像模型与智能 AI 指导系统。文字渲染精准、多角度一致，可直接生成风格化 PPT 幻灯片。标志着图像生成从「辅助」走向「核心生产力」。
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="tag text-xs px-2 py-1 rounded-full">图像生成</span>
+                        <span class="tag text-xs px-2 py-1 rounded-full">PPT 自动化</span>
+                    </div>
+                </div>
+
+                <!-- OpenAI -->
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-3xl p-6 card-glow transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+                            <i class="fa-solid fa-microchip text-emerald-400"></i>
+                        </div>
+                        <span class="text-white font-bold">OpenAI</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Q1 营收 57 亿美元，Codex 驱动增长</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        据 The Information 报道，OpenAI 2026 Q1 营收约 <strong class="text-emerald-300">57 亿美元</strong>。编码助手 <strong class="text-emerald-300">Codex</strong>、企业销售增长和 ChatGPT 广告测试共同推动营收。同时，白宫计划对 AI 模型实施发布前审查，OpenAI 等公司已参加吹风会。
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="tag-green text-xs px-2 py-1 rounded-full">Codex</span>
+                        <span class="tag-amber text-xs px-2 py-1 rounded-full">监管动态</span>
+                    </div>
+                </div>
+
+                <!-- Tencent -->
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-3xl p-6 card-glow transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center">
+                            <i class="fa-brands fa-weixin text-cyan-400"></i>
+                        </div>
+                        <span class="text-white font-bold">腾讯</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">操作系统级 AI 助手「马维斯」上线</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        腾讯发布 <strong class="text-cyan-300">Marvis（马维斯）</strong>，将终端系统、文件、应用、算力和跨端连接纳入同一 AI 中间层。内置 6 个 Agent 协同的「AI 团队」——主 Agent 统筹任务，File、Computer、App、Browser、Search 等专项 Agent 并行执行，装机即用。
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="tag-cyan text-xs px-2 py-1 rounded-full">多 Agent</span>
+                        <span class="tag text-xs px-2 py-1 rounded-full">操作系统集成</span>
+                    </div>
+                </div>
+
+                <!-- Alibaba -->
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-3xl p-6 card-glow transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center">
+                            <i class="fa-solid fa-cloud text-orange-400"></i>
+                        </div>
+                        <span class="text-white font-bold">阿里巴巴</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">蔡崇信吴泳铭致股东信：AI+云是新增长动力</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        阿里巴巴主席蔡崇信与 CEO 吴泳铭联合发布致股东信，宣布 AI 业务已跨越初期投入阶段，正式迈入 <strong class="text-orange-300">商业化回报周期</strong>。将持续加大 AI 基础设施和自研芯片投入，打造更强大的基础模型和 MaaS 产品。
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="tag text-xs px-2 py-1 rounded-full">AI + 云</span>
+                        <span class="tag-green text-xs px-2 py-1 rounded-full">MaaS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="max-w-5xl mx-auto px-4">
+        <div class="h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent"></div>
+    </div>
+
+    <!-- Trend 3: Hardware & Chips -->
+    <section class="py-16 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex items-center gap-4 mb-12" data-aos="fade-right">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-2xl shadow-lg shadow-amber-500/20">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bold text-white">算力基础设施与芯片</h2>
+                    <p class="text-gray-500 mt-1">Nvidia / AMD / 台积电 / 三星</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-3xl p-6 card-glow transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-bolt text-emerald-400 text-lg"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Nvidia Vera Rubin</h3>
+                    <p class="text-sm text-gray-400">CFO 确认 Vera Rubin 芯片将于 <strong class="text-emerald-300">2026 下半年</strong>量产发货。公司对 Blackwell 和 Rubin 芯片在 2025-2027 年实现 <strong class="text-emerald-300">1 万亿美元收入</strong>充满信心。收购 Groq 的 LPX 芯片定位低延迟细分市场。</p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="tag-green text-xs px-2 py-1 rounded-full">Vera Rubin</span>
+                        <span class="tag text-xs px-2 py-1 rounded-full">$1T 目标</span>
+                    </div>
+                </div>
+
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-3xl p-6 card-glow transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-server text-blue-400 text-lg"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">AMD 2nm Venice 量产</h3>
+                    <p class="text-sm text-gray-400">AMD 宣布代号 <strong class="text-blue-300">Venice</strong> 的下一代霄龙处理器正式量产，采用<strong class="text-blue-300">台积电 2nm 工艺</strong>，为 HPC 领域首款量产 2nm 产品。同时宣布投入 <strong class="text-blue-300">100 亿美元</strong>深耕台湾半导体与 AI 产业。</p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="tag text-xs px-2 py-1 rounded-full">2nm 工艺</span>
+                        <span class="tag-amber text-xs px-2 py-1 rounded-full">$100亿投资</span>
+                    </div>
+                </div>
+
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-3xl p-6 card-glow transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-10 h-10 rounded-xl bg-rose-500/20 flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-industry text-rose-400 text-lg"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">三星代工争夺战</h3>
+                    <p class="text-sm text-gray-400">三星会长李在镕赴台会见联发科 CEO，争取天玑芯片代工订单。此前已拿下特斯拉 AI6 芯片订单，正争取 AMD 2nm 订单。三星内存工人达成协议，奖金可达 <strong class="text-rose-300">280 万人民币</strong>，避免了罢工。</p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="tag-rose text-xs px-2 py-1 rounded-full">代工竞争</span>
+                        <span class="tag text-xs px-2 py-1 rounded-full">存储芯片</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="max-w-5xl mx-auto px-4">
+        <div class="h-px bg-gradient-to-r from-transparent via-pink-500/30 to-transparent"></div>
+    </div>
+
+    <!-- Trend 4: Insights -->
+    <section class="py-16 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex items-center gap-4 mb-12" data-aos="fade-right">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-2xl shadow-lg shadow-emerald-500/20">
+                    <i class="fa-solid fa-lightbulb"></i>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bold text-white">深度洞察</h2>
+                    <p class="text-gray-500 mt-1">AI 的「锯齿前沿」与产业趋势</p>
+                </div>
+            </div>
+
+            <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-3xl p-8 card-glow transition-all duration-300" data-aos="fade-up">
+                <h3 class="text-xl font-bold text-white mb-4">AI 的「锯齿前沿」理论</h3>
+                <p class="text-gray-400 leading-relaxed mb-6">
+                    Ethan Mollick 提出的 <strong class="text-brand-300">"Jagged Frontier"</strong>（锯齿前沿）理论在 2025 年持续深化：AI 在某些领域表现超人（如微分诊断、数学推理），但在看似简单的任务（如自动售货机操作）上仍然很弱。这种不均衡增长意味着：
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-dark-700/50 rounded-xl p-4 border border-white/5">
+                        <i class="fa-solid fa-puzzle-piece text-brand-400 text-lg mb-2"></i>
+                        <div class="text-white font-bold text-sm mb-1">瓶颈效应</div>
+                        <div class="text-xs text-gray-400">系统整体能力受限于最弱环节，即使大部分任务已超人</div>
+                    </div>
+                    <div class="bg-dark-700/50 rounded-xl p-4 border border-white/5">
+                        <i class="fa-solid fa-arrows-rotate text-purple-400 text-lg mb-2"></i>
+                        <div class="text-white font-bold text-sm mb-1">反向突进</div>
+                        <div class="text-xs text-gray-400">单一弱点被攻克后，整个系统能力可跳跃式提升</div>
+                    </div>
+                    <div class="bg-dark-700/50 rounded-xl p-4 border border-white/5">
+                        <i class="fa-solid fa-people-arrows text-pink-400 text-lg mb-2"></i>
+                        <div class="text-white font-bold text-sm mb-1">人机互补</div>
+                        <div class="text-xs text-gray-400">AI 与人类各有所长，协作将成为主流模式</div>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500">
+                    <i class="fa-solid fa-quote-left mr-1"></i>
+                    12 年的传统系统综述工作，GPT-4.1 在 2 天内完成——但 AI 无法访问补充文件、无法发邮件向作者索要未公开数据。这些不到 1% 的边缘情况，却意味着无法完全自动化。
+                    <i class="fa-solid fa-quote-right ml-1"></i>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="max-w-5xl mx-auto px-4">
+        <div class="h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent"></div>
+    </div>
+
+    <!-- Trend 5: More News -->
+    <section class="py-16 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex items-center gap-4 mb-12" data-aos="fade-right">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white text-2xl shadow-lg shadow-cyan-500/20">
+                    <i class="fa-solid fa-fire"></i>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bold text-white">更多快讯</h2>
+                    <p class="text-gray-500 mt-1">一周内值得关注的其他动态</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-2xl p-5 card-glow transition-all duration-300 flex items-start gap-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-2 h-2 rounded-full bg-brand-400 mt-2.5 flex-shrink-0"></div>
+                    <div>
+                        <div class="text-white font-bold text-sm mb-1">Manus 创始人融资 10 亿美元回购公司</div>
+                        <div class="text-xs text-gray-500">三位创始人计划从 Meta 手中回购 Agentic AI 技术，后续或赴港 IPO</div>
+                    </div>
+                </div>
+
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-2xl p-5 card-glow transition-all duration-300 flex items-start gap-4" data-aos="fade-up" data-aos-delay="150">
+                    <div class="w-2 h-2 rounded-full bg-purple-400 mt-2.5 flex-shrink-0"></div>
+                    <div>
+                        <div class="text-white font-bold text-sm mb-1">中科沌序完成数千万天使轮融资</div>
+                        <div class="text-xs text-gray-500">中科院自动化所孵化，以集体通用人工智能（Collective AGI）为使命</div>
+                    </div>
+                </div>
+
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-2xl p-5 card-glow transition-all duration-300 flex items-start gap-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-2 h-2 rounded-full bg-pink-400 mt-2.5 flex-shrink-0"></div>
+                    <div>
+                        <div class="text-white font-bold text-sm mb-1">白宫将审查 AI 模型发布</div>
+                        <div class="text-xs text-gray-500">行政令授权情报机构在先进模型发布前进行审查，OpenAI、Anthropic 等参加吹风会</div>
+                    </div>
+                </div>
+
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-2xl p-5 card-glow transition-all duration-300 flex items-start gap-4" data-aos="fade-up" data-aos-delay="250">
+                    <div class="w-2 h-2 rounded-full bg-amber-400 mt-2.5 flex-shrink-0"></div>
+                    <div>
+                        <div class="text-white font-bold text-sm mb-1">摩根大通将增加 AI 人才招聘</div>
+                        <div class="text-xs text-gray-500">CEO 戴蒙表示将雇用更多 AI 专家，减少传统银行家招聘</div>
+                    </div>
+                </div>
+
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-2xl p-5 card-glow transition-all duration-300 flex items-start gap-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-2 h-2 rounded-full bg-emerald-400 mt-2.5 flex-shrink-0"></div>
+                    <div>
+                        <div class="text-white font-bold text-sm mb-1">谷歌密苏里州投资 150 亿美元建数据中心</div>
+                        <div class="text-xs text-gray-500">涵盖数据中心建设、建筑工人培训和能源影响基金</div>
+                    </div>
+                </div>
+
+                <div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-2xl p-5 card-glow transition-all duration-300 flex items-start gap-4" data-aos="fade-up" data-aos-delay="350">
+                    <div class="w-2 h-2 rounded-full bg-cyan-400 mt-2.5 flex-shrink-0"></div>
+                    <div>
+                        <div class="text-white font-bold text-sm mb-1">12.8T 光模块亮相光博会</div>
+                        <div class="text-xs text-gray-500">华工科技发布全球最高速率光模块，光迅科技推出 AI 算力集群硅光 NPO 产品</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-4 border-t border-white/5">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 text-gray-600 text-sm mb-4">
+                <i class="fa-solid fa-robot"></i>
+                <span>Generated by ClawBot AI</span>
+            </div>
+            <p class="text-gray-600 text-sm">
+                数据来源：OpenAI Blog, DeepMind Blog, Sebastian Raschka, One Useful Thing, 36氪, IT之家, 新浪财经 等
+            </p>
+            <p class="text-gray-700 text-xs mt-3">
+                2026-05-22 &middot; AI 大模型动态周报
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        AOS.init({
+            once: true,
+            offset: 80,
+        });
+    </script>
+</body>
+</html>
