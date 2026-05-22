@@ -44,6 +44,8 @@
         body { background: #0a0a1a; font-family: 'Inter', 'Noto Sans SC', sans-serif; }
         .gradient-text { background: linear-gradient(135deg, #818cf8, #c084fc, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .card-glow:hover { box-shadow: 0 0 30px rgba(99, 102, 241, 0.15); }
+        a.block { text-decoration: none; color: inherit; }
+        a.block:hover > div { border-color: rgba(99, 102, 241, 0.3); }
         .hero-bg { background: radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.12) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(192, 132, 252, 0.08) 0%, transparent 50%); }
         .tag { background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.3); color: #a5b4fc; }
         .tag-green { background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.3); color: #86efac; }
@@ -145,7 +147,8 @@
             quick_news: '快讯速递',
             footer_sources: '数据来源：OpenAI Blog, DeepMind Blog, Sebastian Raschka, 36氪, IT之家, 新浪财经 等',
             no_news: '暂无该日期的新闻',
-            today: '今天'
+            today: '今天',
+            view_source: '查看原文'
         },
         en: {
             site_title: 'AI News Daily',
@@ -162,11 +165,12 @@
             quick_news: 'Quick News',
             footer_sources: 'Sources: OpenAI Blog, DeepMind Blog, Sebastian Raschka, 36Kr, IT Home, Sina Finance, etc.',
             no_news: 'No news for this date yet',
-            today: 'Today'
+            today: 'Today',
+            view_source: 'View Source'
         }
     };
 
-    let currentLang = localStorage.getItem('ai-news-lang') || 'zh';
+    let currentLang = localStorage.getItem('ai-news-lang') || 'en';
 
     function t(key) { return (I18N[currentLang] || I18N.zh)[key] || key; }
 
@@ -214,6 +218,7 @@
                             "title": { "zh": "DeepSeek R1：开源推理的里程碑", "en": "DeepSeek R1: Open-Source Reasoning Milestone" },
                             "tag": { "text": { "zh": "重磅", "en": "HOT" }, "class": "tag-rose" },
                             "content": { "zh": "2025 年 1 月，DeepSeek 发布 R1 开源推理模型，性能媲美当时最强闭源模型。通过 RLVR + GRPO 算法高效训练推理能力，训练额外成本仅约 29.4 万美元。", "en": "In Jan 2025, DeepSeek released R1, an open-source reasoning model matching the best proprietary models. Using RLVR + GRPO, the additional training cost was only ~$294K." },
+                            "url": "https://github.com/deepseek-ai/DeepSeek-R1",
                             "tags": ["开源模型", "RLVR", "GRPO"]
                         },
                         {
@@ -235,24 +240,28 @@
                             "title": { "zh": "Google DeepMind 发布 Nano Banana Pro", "en": "Google DeepMind Releases Nano Banana Pro" },
                             "tag": { "text": "Google", "class": "tag" },
                             "content": { "zh": "全新图像生成 AI，文字渲染精准、多角度一致，可直接生成风格化 PPT 幻灯片，标志着图像生成从「辅助」走向「核心生产力」。", "en": "A new image generation AI with precise text rendering and multi-angle consistency, capable of directly generating styled PPT slides." },
+                            "url": "https://deepmind.google/discover/blog/",
                             "tags": ["图像生成", "PPT"]
                         },
                         {
                             "title": { "zh": "OpenAI Q1 营收 57 亿美元，Codex 驱动增长", "en": "OpenAI Q1 Revenue $5.7B, Codex Drives Growth" },
                             "tag": { "text": "OpenAI", "class": "tag-green" },
                             "content": { "zh": "编码助手 Codex、企业销售增长和 ChatGPT 广告测试共同推动营收。白宫计划对 AI 模型实施发布前审查。", "en": "Codex coding assistant, enterprise sales, and ChatGPT ad testing drive revenue. White House plans pre-release review for AI models." },
+                            "url": "https://openai.com/blog",
                             "tags": ["Codex", "监管"]
                         },
                         {
                             "title": { "zh": "腾讯发布操作系统级 AI 助手「马维斯」", "en": "Tencent Launches OS-Level AI Assistant 'Marvis'" },
                             "tag": { "text": "腾讯", "class": "tag-cyan" },
                             "content": { "zh": "内置 6 个 Agent 协同的「AI 团队」——主 Agent 统筹任务，File、Computer、App、Browser、Search 等专项 Agent 并行执行，装机即用。", "en": "Built-in 6-agent 'AI Team' with main Agent coordinating tasks, plus File, Computer, App, Browser, Search agents running in parallel." },
+                            "url": "https://www.36kr.com/search/articles/%E8%85%BE%E8%AE%AF%E9%A9%AC%E7%BB%B4%E6%96%AF",
                             "tags": ["多Agent", "OS集成"]
                         },
                         {
                             "title": { "zh": "阿里巴巴：AI+云是新增长动力", "en": "Alibaba: AI + Cloud as New Growth Driver" },
                             "tag": { "text": "阿里巴巴", "class": "tag-amber" },
                             "content": { "zh": "蔡崇信与吴泳铭联合致股东信，宣布 AI 业务正式迈入商业化回报周期。将持续加大 AI 基础设施和自研芯片投入。", "en": "Chairman Joe Tsai and CEO Eddie Wu's joint letter announces AI business entering commercial return phase, with continued investment in AI infrastructure." },
+                            "url": "https://finance.sina.com.cn/search/?q=%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4+AI",
                             "tags": ["AI+云", "MaaS"]
                         }
                     ]
@@ -268,18 +277,21 @@
                             "title": { "zh": "Nvidia Vera Rubin 下半年量产", "en": "Nvidia Vera Rubin Mass Production in H2" },
                             "tag": { "text": "Nvidia", "class": "tag-green" },
                             "content": { "zh": "CFO 确认 Vera Rubin 芯片将于 2026 下半年量产发货。Blackwell 和 Rubin 芯片 2025-2027 年目标 1 万亿美元收入。", "en": "CFO confirms Vera Rubin chip mass production in H2 2026. Blackwell and Rubin chips target $1T revenue over 2025-2027." },
+                            "url": "https://nvidianews.nvidia.com/news/latest",
                             "tags": ["Vera Rubin", "$1T目标"]
                         },
                         {
                             "title": { "zh": "AMD 2nm Venice 正式量产", "en": "AMD 2nm Venice Enters Mass Production" },
                             "tag": { "text": "AMD", "class": "tag" },
                             "content": { "zh": "采用台积电 2nm 工艺，HPC 领域首款量产 2nm 产品。同时宣布投入 100 亿美元深耕台湾半导体与 AI 产业。", "en": "Using TSMC 2nm process, the first mass-produced 2nm HPC product. AMD also announced $10B investment in Taiwan's semiconductor and AI industry." },
+                            "url": "https://www.amd.com/en/newsroom.html",
                             "tags": ["2nm", "$100亿投资"]
                         },
                         {
                             "title": { "zh": "三星代工争夺战加剧", "en": "Samsung Foundry Competition Intensifies" },
                             "tag": { "text": "三星", "class": "tag-rose" },
                             "content": { "zh": "三星会长赴台争取联发科代工订单，已拿下特斯拉 AI6 芯片订单。内存工人达成协议，避免罢工。", "en": "Samsung chairman visits Taiwan to win MediaTek foundry orders, already secured Tesla AI6 chip orders. Memory workers reach agreement to avoid strike." },
+                            "url": "https://news.samsung.com/global/latest",
                             "tags": ["代工", "存储"]
                         }
                     ]
@@ -295,6 +307,7 @@
                             "title": { "zh": "AI 的「锯齿前沿」理论", "en": "AI's 'Jagged Frontier' Theory" },
                             "tag": { "text": { "zh": "洞察", "en": "INSIGHT" }, "class": "tag-amber" },
                             "content": { "zh": "AI 在某些领域表现超人（如微分诊断、数学推理），但在看似简单的任务上仍然很弱。瓶颈效应、反向突进、人机互补将是未来主旋律。", "en": "AI excels superhumanly in some domains (differential diagnosis, math reasoning) but remains weak in seemingly simple tasks. Bottleneck effects, reverse breakthroughs, and human-AI complementarity will be the future trend." },
+                            "url": "https://arxiv.org/abs/2505.13309",
                             "tags": ["Jagged Frontier", "人机协作"]
                         }
                     ]
@@ -309,21 +322,25 @@
                         {
                             "title": { "zh": "Manus 创始人融资 10 亿美元回购公司", "en": "Manus Founders Raise $1B to Buy Back Company" },
                             "content": { "zh": "三位创始人计划从 Meta 手中回购 Agentic AI 技术，后续或赴港 IPO", "en": "Three founders plan to buy back Agentic AI tech from Meta, potential Hong Kong IPO" },
+                            "url": "https://www.36kr.com/search/articles/Manus",
                             "tags": []
                         },
                         {
                             "title": { "zh": "白宫将审查 AI 模型发布", "en": "White House to Review AI Model Releases" },
                             "content": { "zh": "行政令授权情报机构在先进模型发布前进行审查", "en": "Executive order authorizes intelligence agencies to review advanced models before release" },
+                            "url": "https://www.reuters.com/technology/artificial-intelligence/",
                             "tags": []
                         },
                         {
                             "title": { "zh": "中科沌序完成数千万天使轮融资", "en": "CAS-backed Collective AGI Startup Raises Angel Round" },
                             "content": { "zh": "中科院自动化所孵化，以集体通用人工智能为使命", "en": "Incubated by CAS Institute of Automation, mission is Collective AGI" },
+                            "url": "https://www.36kr.com/search/articles/%E4%B8%AD%E7%A7%91%E6%B7%B7%E5%BA%8F",
                             "tags": []
                         },
                         {
                             "title": { "zh": "谷歌密苏里州投资 150 亿美元建数据中心", "en": "Google Invests $15B in Missouri Data Center" },
                             "content": { "zh": "涵盖数据中心建设、建筑工人培训和能源影响基金", "en": "Covers data center construction, worker training, and energy impact fund" },
+                            "url": "https://blog.google/outreach-initiatives/economic-development/google-missouri-data-center-investment/",
                             "tags": []
                         }
                     ]
@@ -381,14 +398,22 @@
                     const cardTitle = currentLang === 'en' && card.title.en ? card.title.en : card.title.zh;
                     const cardContent = currentLang === 'en' && card.content.en ? card.content.en : card.content.zh;
                     const tagText = card.tag && card.tag.text ? (currentLang === 'en' && card.tag.text.en ? card.tag.text.en : card.tag.text.zh) : '';
+                    const cardUrl = card.url || '';
+                    const linkOpen = cardUrl ? `<a href="${cardUrl}" target="_blank" rel="noopener noreferrer" class="block group">` : '';
+                    const linkClose = cardUrl ? '</a>' : '';
+                    const viewSourceText = t('view_source');
+const linkHint = cardUrl ? '<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"><i class="fa-solid fa-arrow-up-right-from-square text-brand-400 text-xs"></i></div>' : '';
                     if (section.type === 'quick') {
-                        html += `<div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-2xl p-5 card-glow transition-all duration-300 flex items-start gap-4" data-aos="fade-up" data-aos-delay="${ci * 50}"><div class="w-2 h-2 rounded-full bg-brand-400 mt-2.5 flex-shrink-0"></div><div><div class="text-white font-bold text-sm mb-1">${cardTitle}</div><div class="text-xs text-gray-500">${cardContent}</div></div></div>`;
+                        html += `${linkOpen}<div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-2xl p-5 card-glow transition-all duration-300 flex items-start gap-4 relative ${cardUrl ? 'cursor-pointer hover:border-brand-500/30' : ''}" data-aos="fade-up" data-aos-delay="${ci * 50}">${linkHint}<div class="w-2 h-2 rounded-full bg-brand-400 mt-2.5 flex-shrink-0"></div><div><div class="text-white font-bold text-sm mb-1">${cardTitle}</div><div class="text-xs text-gray-500">${cardContent}</div>${cardUrl ? `<div class="text-xs text-brand-400 mt-2 opacity-70"><i class="fa-solid fa-arrow-right mr-1"></i>${viewSourceText}</div>` : ''}</div></div>${linkClose}`;
                     } else {
-                        html += `<div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-2xl p-6 card-glow transition-all duration-300" data-aos="fade-up" data-aos-delay="${ci * 50}"><div class="flex flex-wrap items-center gap-2 mb-2"><h3 class="text-lg font-bold text-white">${cardTitle}</h3>${tagText ? `<span class="${card.tag.class} text-xs px-2 py-0.5 rounded-full font-medium">${tagText}</span>` : ''}</div><p class="text-sm text-gray-400 leading-relaxed mb-3">${cardContent}</p>`;
+                        html += `${linkOpen}<div class="bg-dark-800/50 backdrop-blur border border-white/5 rounded-2xl p-6 card-glow transition-all duration-300 relative ${cardUrl ? 'cursor-pointer hover:border-brand-500/30' : ''}" data-aos="fade-up" data-aos-delay="${ci * 50}">${linkHint}<div class="flex flex-wrap items-center gap-2 mb-2"><h3 class="text-lg font-bold text-white">${cardTitle}</h3>${tagText ? `<span class="${card.tag.class} text-xs px-2 py-0.5 rounded-full font-medium">${tagText}</span>` : ''}</div><p class="text-sm text-gray-400 leading-relaxed mb-3">${cardContent}</p>`;
                         if (card.tags && card.tags.length) {
-                            html += `<div class="flex flex-wrap gap-2">${card.tags.map(tg => `<span class="tag text-xs px-2 py-1 rounded-full">${tg}</span>`).join('')}</div>`;
+                            html += `<div class="flex flex-wrap gap-2 mb-2">${card.tags.map(tg => `<span class="tag text-xs px-2 py-1 rounded-full">${tg}</span>`).join('')}</div>`;
                         }
-                        html += `</div>`;
+                        if (cardUrl) {
+                            html += `<div class="text-xs text-brand-400 opacity-70 mt-2"><i class="fa-solid fa-arrow-right mr-1"></i>${viewSourceText}</div>`;
+                        }
+                        html += `</div>${linkClose}`;
                     }
                 });
                 html += `</div></div>`;
